@@ -144,11 +144,11 @@ WHERE `degrees`.`name` = "Corso di Laurea in Economia"; (68)
 
 3. Selezionare tutti i corsi in cui insegna Fulvio Amato (id=44)
 
-   SELECT courses.id, courses.name, teachers.name, teachers.surname
-   FROM courses
-   JOIN course_teacher ON courses.id = course_teacher.course_id
-   JOIN teachers ON course_teacher.teacher_id = teachers.id
-   WHERE teachers.id = 44;
+   SELECT `courses`.`id`, `courses`.`name`, `teachers`.`name`, `teachers`.`surname`
+   FROM `courses`
+   JOIN `course_teacher` ON `courses`.`id` = `course_teacher`.`course_id`
+   JOIN `teachers` ON `course_teacher`.`teacher_id` = `teachers.id`
+   WHERE `teachers.id` = 44;
 
    /////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -156,16 +156,24 @@ WHERE `degrees`.`name` = "Corso di Laurea in Economia"; (68)
    sono iscritti e il relativo dipartimento, in ordine alfabetico per cognome e
    nome
 
-   SELECT students.id, students.name, students.surname, students.registration_number,degrees.name AS degrees_name, departments.name AS department_name
-   FROM students
-   JOIN degrees ON students.degree_id = degrees.id
-   JOIN departments ON degrees.department_id = departments.id
-   ORDER BY students.surname ASC, students.name ASC;
+   SELECT `students`.`id`, `students`.`name`, `students`.`surname`, `students`.`registration_number`,`degrees`.`name` AS `degrees_name`, `departments`.`name` AS `department_name`
+   FROM `students`
+   JOIN `degrees` ON `students`.`degree_id` = degrees.id
+   JOIN `departments` ON `degrees`.`department_id` = `departments`.`id`
+   ORDER BY `students`.`surname` ASC, `students`.`name` ASC;
 
    /////////////////////////////////////////////////////////////////////////////////////////////////
 
 5. Selezionare tutti i corsi di laurea con i relativi corsi e insegnanti
+
+   SELECT `degrees`.`name` AS `degree_name`,`courses`.`name` AS `course_name`,`courses`.`period`,`courses`.`year`,`courses`.`cfu`,`teachers`.`name`,`teachers`.`surname`
+   FROM `degrees`
+   JOIN `courses` ON `courses`.`degree_id` = `degrees`.`id`
+   JOIN `course_teacher` ON `course_teacher`.`course_id`= `courses`.`id`
+   JOIN `teachers`ON `teachers`.`id`= `course_teacher`.`teacher_id`
+
    /////////////////////////////////////////////////////////////////////////////////////////////////
+
 6. Selezionare tutti i docenti che insegnano nel Dipartimento di
    Matematica (54)
    /////////////////////////////////////////////////////////////////////////////////////////////////
